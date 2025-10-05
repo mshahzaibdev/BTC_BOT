@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Environment variables
+.env
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+
+# Model files (optional - uncomment if you want to exclude them)
+# scaler.pkl
+# kmeans.pkl
+
+# Docker
+.dockerignore
+
+# OS
+Thumbs.db
+.DS_Store

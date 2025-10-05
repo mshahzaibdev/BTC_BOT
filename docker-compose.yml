@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  discord-bot:
+    build: .
+    container_name: ict-discord-bot
+    restart: unless-stopped
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - SIGNAL_CHANNEL_ID=${SIGNAL_CHANNEL_ID}
+      - CHECK_INTERVAL_MINUTES=${CHECK_INTERVAL_MINUTES:-15}
+      - SCALER_PATH=./scaler.pkl
+      - KMEANS_PATH=./kmeans.pkl
+      - SWING_LENGTH=${SWING_LENGTH:-15}
+    volumes:
+      # Mount model files (optional - already in image)
+      - ./scaler.pkl:/app/scaler.pkl:ro
+      - ./kmeans.pkl:/app/kmeans.pkl:ro
+    # No ports needed - Discord bot doesn't expose HTTP
