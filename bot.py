@@ -6,6 +6,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands, tasks
 import os
+import json
 from dotenv import load_dotenv
 from services.binance_service import BinanceService
 from services.prediction_service import PredictionService
@@ -15,11 +16,11 @@ load_dotenv()
 
 # Configuration
 DISCORD_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
-SIGNAL_CHANNEL_ID = int(os.getenv('SIGNAL_CHANNEL_ID', '0'))  # Channel where signals will be posted
 CHECK_INTERVAL_MINUTES = int(os.getenv('CHECK_INTERVAL_MINUTES', '15'))  # How often to check for signals
 SCALER_PATH = os.getenv('SCALER_PATH', './scaler.pkl')
 KMEANS_PATH = os.getenv('KMEANS_PATH', './kmeans.pkl')
 SWING_LENGTH = int(os.getenv('SWING_LENGTH', '15'))  # Length for swing high/low detection
+SERVER_CONFIG_FILE = os.getenv('SERVER_CONFIG_FILE', 'server_config.json')
 
 # Validate token
 if not DISCORD_TOKEN:
@@ -35,15 +36,47 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 binance_service = None
 prediction_service = None
 last_signal = None  # Track the last signal to avoid duplicate alerts
+server_configs = {}  # Store channel configurations per server: {guild_id: channel_id}
+
+
+def load_server_configs():
+    """Load server configurations from JSON file"""
+    global server_configs
+    try:
+        if os.path.exists(SERVER_CONFIG_FILE):
+            with open(SERVER_CONFIG_FILE, 'r') as f:
+                server_configs = json.load(f)
+            # Convert string keys to int
+            server_configs = {int(k): v for k, v in server_configs.items()}
+            print(f'✅ Loaded configurations for {len(server_configs)} server(s)')
+        else:
+            server_configs = {}
+            print('ℹ️  No server configurations found, starting fresh')
+    except Exception as e:
+        print(f'❌ Error loading server configs: {e}')
+        server_configs = {}
+
+
+def save_server_configs():
+    """Save server configurations to JSON file"""
+    try:
+        with open(SERVER_CONFIG_FILE, 'w') as f:
+            json.dump(server_configs, f, indent=2)
+        print(f'✅ Saved configurations for {len(server_configs)} server(s)')
+    except Exception as e:
+        print(f'❌ Error saving server configs: {e}')
 
 
 @tasks.loop(minutes=CHECK_INTERVAL_MINUTES)
 async def check_signals():
     """
     Background task that runs every 15 minutes to send signal status updates
-    Sends regular updates about current signal status
+    Sends regular updates about current signal status to all configured channels
     """
     global last_signal
+
+    if not server_configs:
+        return  # No servers configured
 
     try:
         # Fetch latest data
@@ -57,16 +90,6 @@ async def check_signals():
         # Get prediction
         prediction = prediction_service.predict_signal(latest_candle)
         current_signal = prediction['signal']
-
-        # Get the channel to post in
-        try:
-            channel = await bot.fetch_channel(SIGNAL_CHANNEL_ID)
-        except discord.NotFound:
-            print(f'❌ Could not find channel with ID {SIGNAL_CHANNEL_ID}')
-            return
-        except discord.Forbidden:
-            print(f'❌ Bot does not have permission to access channel {SIGNAL_CHANNEL_ID}')
-            return
 
         # Build the status embed
         current_price = float(latest_candle['close'])
@@ -138,12 +161,24 @@ async def check_signals():
         embed.set_footer(text="⚠️ Not financial advice. DYOR.")
         embed.timestamp = discord.utils.utcnow()
 
-        # Send the update
-        await channel.send(content=ping_message, embed=embed)
+        # Send to all configured channels
+        success_count = 0
+        for guild_id, channel_id in server_configs.items():
+            try:
+                channel = await bot.fetch_channel(channel_id)
+                await channel.send(content=ping_message, embed=embed)
+                success_count += 1
+            except discord.NotFound:
+                print(f'❌ Channel {channel_id} not found (Server ID: {guild_id})')
+            except discord.Forbidden:
+                print(f'❌ No permission for channel {channel_id} (Server ID: {guild_id})')
+            except Exception as e:
+                print(f'❌ Error sending to channel {channel_id}: {e}')
+
         if is_new_signal:
-            print(f'🚨 NEW {current_signal.upper()} signal sent to channel {SIGNAL_CHANNEL_ID}')
+            print(f'🚨 NEW {current_signal.upper()} signal sent to {success_count}/{len(server_configs)} server(s)')
         else:
-            print(f'📊 Status update sent to channel {SIGNAL_CHANNEL_ID} - Signal: {current_signal.upper()}')
+            print(f'📊 Status update sent to {success_count}/{len(server_configs)} server(s) - Signal: {current_signal.upper()}')
 
     except Exception as e:
         print(f'❌ Error in check_signals: {e}')
@@ -156,6 +191,13 @@ async def on_ready():
 
     print(f'🤖 Bot logged in as {bot.user}')
     print(f'📊 Connected to {len(bot.guilds)} server(s)')
+    
+    # List all servers
+    for guild in bot.guilds:
+        print(f'   └─ {guild.name} (ID: {guild.id})')
+
+    # Load server configurations
+    load_server_configs()
 
     # Initialize services
     try:
@@ -176,13 +218,14 @@ async def on_ready():
     except Exception as e:
         print(f'❌ Error syncing commands: {e}')
 
-    # Start automatic signal monitoring if channel ID is configured
-    if SIGNAL_CHANNEL_ID > 0:
+    # Start automatic signal monitoring if any server is configured
+    if server_configs:
         check_signals.start()
         print(f'✅ Auto-signal monitoring started (every {CHECK_INTERVAL_MINUTES} minutes)')
-        print(f'📢 Signals will be posted to channel ID: {SIGNAL_CHANNEL_ID}')
+        print(f'📢 Signals will be posted to {len(server_configs)} configured server(s)')
     else:
-        print('⚠️  Auto-signals disabled (SIGNAL_CHANNEL_ID not set)')
+        print('⚠️  Auto-signals disabled (no servers configured yet)')
+        print('💡 Use /setup command in your server to configure signal channel')
 
 
 @bot.tree.command(name="signal", description="Get ICT trading signal for BTCUSDT")
@@ -336,7 +379,10 @@ async def info(interaction: discord.Interaction):
         name="🔧 Commands",
         value="`/signal` - Get current trading signal\n"
               "`/info` - Show this information\n"
-              "`/ping` - Check bot latency",
+              "`/ping` - Check bot latency\n"
+              "`/setup` - Configure signal channel (Admin)\n"
+              "`/status` - Check server configuration\n"
+              "`/remove` - Disable automatic signals (Admin)",
         inline=False
     )
 
@@ -365,6 +411,150 @@ async def ping(interaction: discord.Interaction):
         color=discord.Color.green()
     )
 
+    await interaction.response.send_message(embed=embed)
+
+
+@bot.tree.command(name="setup", description="Configure signal channel for this server (Admin only)")
+@app_commands.describe(channel="The channel where signals will be posted")
+@app_commands.checks.has_permissions(administrator=True)
+async def setup(interaction: discord.Interaction, channel: discord.TextChannel):
+    """
+    Slash command: /setup
+    Configure the signal channel for the current server
+    Requires administrator permission
+    """
+    guild_id = interaction.guild_id
+    channel_id = channel.id
+    
+    # Save configuration
+    server_configs[guild_id] = channel_id
+    save_server_configs()
+    
+    # Start monitoring if not already running
+    if not check_signals.is_running():
+        check_signals.start()
+        print(f'✅ Auto-signal monitoring started')
+    
+    embed = discord.Embed(
+        title="✅ Setup Complete",
+        description=f"Signal channel has been set to {channel.mention}",
+        color=discord.Color.green()
+    )
+    
+    embed.add_field(
+        name="What's Next?",
+        value=f"• Automatic signals will be posted every {CHECK_INTERVAL_MINUTES} minutes\n"
+              "• Use `/signal` to get a signal on-demand\n"
+              "• Use `/status` to check current configuration",
+        inline=False
+    )
+    
+    embed.set_footer(text="Only administrators can change this configuration")
+    
+    await interaction.response.send_message(embed=embed)
+    print(f'✅ Server {interaction.guild.name} (ID: {guild_id}) configured with channel #{channel.name} (ID: {channel_id})')
+
+
+@bot.tree.command(name="remove", description="Remove signal configuration from this server (Admin only)")
+@app_commands.checks.has_permissions(administrator=True)
+async def remove(interaction: discord.Interaction):
+    """
+    Slash command: /remove
+    Remove the signal channel configuration for the current server
+    Requires administrator permission
+    """
+    guild_id = interaction.guild_id
+    
+    if guild_id in server_configs:
+        del server_configs[guild_id]
+        save_server_configs()
+        
+        embed = discord.Embed(
+            title="✅ Configuration Removed",
+            description="Automatic signals have been disabled for this server.",
+            color=discord.Color.orange()
+        )
+        
+        embed.add_field(
+            name="Note",
+            value="You can still use `/signal` to get signals on-demand.\n"
+                  "Use `/setup` to re-enable automatic signals.",
+            inline=False
+        )
+        
+        await interaction.response.send_message(embed=embed)
+        print(f'🗑️  Configuration removed for server {interaction.guild.name} (ID: {guild_id})')
+        
+        # Stop monitoring if no servers configured
+        if not server_configs and check_signals.is_running():
+            check_signals.stop()
+            print('⏸️  Auto-signal monitoring stopped (no servers configured)')
+    else:
+        embed = discord.Embed(
+            title="ℹ️ Not Configured",
+            description="This server doesn't have automatic signals configured.",
+            color=discord.Color.blue()
+        )
+        await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
+@bot.tree.command(name="status", description="Check current bot configuration for this server")
+async def status(interaction: discord.Interaction):
+    """
+    Slash command: /status
+    Show current configuration status for the server
+    """
+    guild_id = interaction.guild_id
+    
+    embed = discord.Embed(
+        title="📊 Server Configuration Status",
+        color=discord.Color.blue()
+    )
+    
+    if guild_id in server_configs:
+        channel_id = server_configs[guild_id]
+        try:
+            channel = await bot.fetch_channel(channel_id)
+            embed.description = "✅ Automatic signals are **enabled**"
+            embed.add_field(
+                name="Signal Channel",
+                value=f"{channel.mention}",
+                inline=False
+            )
+            embed.add_field(
+                name="Update Frequency",
+                value=f"Every {CHECK_INTERVAL_MINUTES} minutes",
+                inline=True
+            )
+            embed.add_field(
+                name="Status",
+                value="🟢 Active" if check_signals.is_running() else "🔴 Inactive",
+                inline=True
+            )
+            embed.color = discord.Color.green()
+        except:
+            embed.description = "⚠️ Configuration exists but channel is invalid"
+            embed.add_field(
+                name="Action Required",
+                value="Use `/setup` to reconfigure the signal channel",
+                inline=False
+            )
+            embed.color = discord.Color.orange()
+    else:
+        embed.description = "❌ Automatic signals are **not configured**"
+        embed.add_field(
+            name="To Enable",
+            value="Use `/setup #channel` to configure automatic signals",
+            inline=False
+        )
+        embed.color = discord.Color.red()
+    
+    embed.add_field(
+        name="Manual Signals",
+        value="Use `/signal` anytime to get a signal on-demand",
+        inline=False
+    )
+    
     await interaction.response.send_message(embed=embed)
 
 

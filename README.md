@@ -4,10 +4,12 @@ AI-powered Smart Money Concepts signal generator for BTC/USDT using K-Means clus
 
 ## 🌟 Features
 
-- **On-demand signals** - Get trading signals with `/signal` command
+- **Multi-server support** - Add the bot to multiple Discord servers
+- **Automatic signals** - Configure channels to receive signals every 15 minutes
+- **On-demand signals** - Get trading signals anytime with `/signal` command
 - **Smart Money Concepts** - Analyzes FVG, Order Blocks, and Swing levels
 - **ML-powered** - Uses K-Means clustering trained on historical data
-- **Simple & Fast** - No database, just instant signal generation
+- **Simple & Fast** - Lightweight configuration with JSON storage
 - **15-minute timeframe** - Optimized for swing trading
 
 ## 📋 Prerequisites
@@ -57,18 +59,64 @@ You should see:
 ```
 🚀 Starting ICT Trading Signal Bot...
 🤖 Bot logged in as YourBot#1234
-✅ Models loaded successfully
+📊 Connected to 2 server(s)
+   └─ My Server (ID: 123456789)
+   └─ Trading Hub (ID: 987654321)
 ✅ Services initialized successfully
-✅ Synced 3 slash command(s)
+✅ Synced 6 slash command(s)
+⚠️  Auto-signals disabled (no servers configured yet)
+💡 Use /setup command in your server to configure signal channel
 ```
+
+### 5. Configure Servers
+
+In each Discord server where you want automatic signals:
+
+1. Run `/setup #channel` (replace `#channel` with your desired channel)
+2. The bot will start posting signals to that channel every 15 minutes
+
+**Note:** You need Administrator permission to use `/setup`
 
 ## 🎮 Discord Commands
 
-| Command | Description |
-|---------|-------------|
-| `/signal` | Get current BTC/USDT trading signal |
-| `/info` | Learn how the bot works |
-| `/ping` | Check bot latency |
+| Command | Description | Permission |
+|---------|-------------|------------|
+| `/signal` | Get current BTC/USDT trading signal | Everyone |
+| `/info` | Learn how the bot works | Everyone |
+| `/ping` | Check bot latency | Everyone |
+| `/setup #channel` | Configure automatic signals for this server | Administrator |
+| `/status` | Check current server configuration | Everyone |
+| `/remove` | Disable automatic signals for this server | Administrator |
+
+## 🔧 Multi-Server Setup
+
+The bot supports multiple Discord servers simultaneously. Each server can have its own signal channel.
+
+### Setting Up a Server
+
+1. Invite the bot to your server (see [Setting Up Discord Bot](#setting-up-discord-bot))
+2. Run `/setup #signals` (replace with your channel name)
+3. The bot will automatically post signals to that channel
+
+### Configuration Storage
+
+Server configurations are stored in `server_config.json`:
+
+```json
+{
+  "123456789": 987654321,
+  "111222333": 444555666
+}
+```
+
+This maps server IDs to channel IDs. The file is created automatically.
+
+### Managing Multiple Servers
+
+- **Check status:** `/status` shows if automatic signals are enabled
+- **Change channel:** Run `/setup #new-channel` to update
+- **Disable signals:** `/remove` stops automatic signals for that server
+- **Re-enable:** Run `/setup` again anytime
 
 ## 🔧 Setting Up Discord Bot
 
@@ -93,7 +141,7 @@ In the **"Bot"** tab:
 2. Enable **"Message Content Intent"**
 3. Save changes
 
-### Step 4: Invite Bot to Server
+### Step 4: Invite Bot to Servers
 
 1. Go to **"OAuth2"** → **"URL Generator"**
 2. Select scopes:
@@ -103,8 +151,10 @@ In the **"Bot"** tab:
    - ✅ Send Messages
    - ✅ Embed Links
    - ✅ Use Slash Commands
+   - ✅ Mention Everyone (for @here notifications)
 4. Copy the generated URL
-5. Open in browser and invite to your server
+5. Open in browser and invite to your server(s)
+6. **Repeat for each server** where you want the bot
 
 ## 📊 How It Works
 
@@ -138,9 +188,10 @@ Sends formatted response with levels
 discord_bot/
 ├── bot.py                    # Main bot file
 ├── config.py                 # Configuration
+├── server_config.json        # Server channel configs (auto-created)
 ├── .env                      # Environment variables (create this)
 ├── .env.example             # Environment template
-├── requirements_bot.txt     # Dependencies
+├── requirements.txt         # Dependencies
 ├── services/
 │   ├── __init__.py
 │   ├── binance_service.py   # Binance API client
