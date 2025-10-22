@@ -482,7 +482,11 @@ async def on_ready():
         print(f'[INIT] Scaler path: {SCALER_PATH}')
         print(f'[INIT] KMeans path: {KMEANS_PATH}')
 
-        binance_client = Client(None, None)
+        # Initialize Binance client without API keys (public data only)
+        # Use testnet=True to avoid rate limit issues on production API
+        binance_client = Client(None, None, testnet=True)
+        print('[INIT] ✅ Binance client initialized (testnet mode)')
+
         scaler = joblib.load(SCALER_PATH)
         kmeans = joblib.load(KMEANS_PATH)
 
