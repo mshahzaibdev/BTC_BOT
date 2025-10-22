@@ -1,0 +1,22 @@
+services:
+  - type: worker
+    name: ict-discord-bot
+    runtime: docker
+    plan: free
+    repo: https://github.com/YOUR_USERNAME/YOUR_REPO_NAME
+    branch: main
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: SCALER_PATH
+        value: ./scaler.pkl
+      - key: KMEANS_PATH
+        value: ./kmeans.pkl
+      - key: SWING_LENGTH
+        value: 15
+      - key: CHECK_INTERVAL_MINUTES
+        value: 15
+      - key: SERVER_CONFIG_FILE
+        value: server_config.json
+    autoDeploy: true
