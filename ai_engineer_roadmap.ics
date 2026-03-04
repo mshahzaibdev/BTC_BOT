@@ -1,0 +1,344 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//AI Engineer Roadmap//mxm.dk//
+BEGIN:VEVENT
+SUMMARY:KICKOFF: PHASE 1: Enterprise RAG Search Engine
+DTSTART;TZID=America/New_York:20241104T090000
+DTEND;TZID=America/New_York:20241104T100000
+DESCRIPTION:Objective: Start PHASE 1: Enterprise RAG Search Engine
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Setup Project & Azure Resources
+DTSTART;TZID=America/New_York:20241104T090000
+DTEND;TZID=America/New_York:20241104T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Setup Pro
+ ject & Azure Resources
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Setup Project & Azure Resources
+DTSTART;TZID=America/New_York:20241105T090000
+DTEND;TZID=America/New_York:20241105T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Setup Pro
+ ject & Azure Resources
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Ingestion Pipeline (Upload/Chunk)
+DTSTART;TZID=America/New_York:20241106T090000
+DTEND;TZID=America/New_York:20241106T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Build Ing
+ estion Pipeline (Upload/Chunk)
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Ingestion Pipeline (Upload/Chunk)
+DTSTART;TZID=America/New_York:20241107T090000
+DTEND;TZID=America/New_York:20241107T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Build Ing
+ estion Pipeline (Upload/Chunk)
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Implement Hybrid Retrieval (BM25+Embeddings)
+DTSTART;TZID=America/New_York:20241108T090000
+DTEND;TZID=America/New_York:20241108T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Implement
+  Hybrid Retrieval (BM25+Embeddings)
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Integrate Reranker (Cohere/Jina)
+DTSTART;TZID=America/New_York:20241111T090000
+DTEND;TZID=America/New_York:20241111T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Integrate
+  Reranker (Cohere/Jina)
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build LangGraph Reasoning Nodes
+DTSTART;TZID=America/New_York:20241112T090000
+DTEND;TZID=America/New_York:20241112T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Build Lan
+ gGraph Reasoning Nodes
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build LangGraph Reasoning Nodes
+DTSTART;TZID=America/New_York:20241113T090000
+DTEND;TZID=America/New_York:20241113T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Build Lan
+ gGraph Reasoning Nodes
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Add Citations & UI
+DTSTART;TZID=America/New_York:20241114T090000
+DTEND;TZID=America/New_York:20241114T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Add Citat
+ ions & UI
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Add Citations & UI
+DTSTART;TZID=America/New_York:20241115T090000
+DTEND;TZID=America/New_York:20241115T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Add Citat
+ ions & UI
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Deploy to Azure Container Apps
+DTSTART;TZID=America/New_York:20241118T090000
+DTEND;TZID=America/New_York:20241118T130000
+DESCRIPTION:Phase: PHASE 1: Enterprise RAG Search Engine\nFocus: Deploy to
+  Azure Container Apps
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:KICKOFF: PHASE 2: Workflow Automation Agent
+DTSTART;TZID=America/New_York:20241119T090000
+DTEND;TZID=America/New_York:20241119T100000
+DESCRIPTION:Objective: Start PHASE 2: Workflow Automation Agent
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: LangGraph Agent Structure
+DTSTART;TZID=America/New_York:20241119T090000
+DTEND;TZID=America/New_York:20241119T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: LangGraph Ag
+ ent Structure
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: LangGraph Agent Structure
+DTSTART;TZID=America/New_York:20241120T090000
+DTEND;TZID=America/New_York:20241120T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: LangGraph Ag
+ ent Structure
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Slack Bot Tool
+DTSTART;TZID=America/New_York:20241121T090000
+DTEND;TZID=America/New_York:20241121T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: Build Slack 
+ Bot Tool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Slack Bot Tool
+DTSTART;TZID=America/New_York:20241122T090000
+DTEND;TZID=America/New_York:20241122T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: Build Slack 
+ Bot Tool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Google Calendar/Drive Tool
+DTSTART;TZID=America/New_York:20241125T090000
+DTEND;TZID=America/New_York:20241125T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: Build Google
+  Calendar/Drive Tool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Google Calendar/Drive Tool
+DTSTART;TZID=America/New_York:20241126T090000
+DTEND;TZID=America/New_York:20241126T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: Build Google
+  Calendar/Drive Tool
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Implement Redis Memory
+DTSTART;TZID=America/New_York:20241127T090000
+DTEND;TZID=America/New_York:20241127T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: Implement Re
+ dis Memory
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Implement Redis Memory
+DTSTART;TZID=America/New_York:20241128T090000
+DTEND;TZID=America/New_York:20241128T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: Implement Re
+ dis Memory
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Connect n8n Workflows
+DTSTART;TZID=America/New_York:20241129T090000
+DTEND;TZID=America/New_York:20241129T130000
+DESCRIPTION:Phase: PHASE 2: Workflow Automation Agent\nFocus: Connect n8n 
+ Workflows
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:KICKOFF: PHASE 3: AI Meeting Pipeline
+DTSTART;TZID=America/New_York:20241202T090000
+DTEND;TZID=America/New_York:20241202T100000
+DESCRIPTION:Objective: Start PHASE 3: AI Meeting Pipeline
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Setup Deepgram/Whisper ASR
+DTSTART;TZID=America/New_York:20241202T090000
+DTEND;TZID=America/New_York:20241202T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Setup Deepgram/Whi
+ sper ASR
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Setup Deepgram/Whisper ASR
+DTSTART;TZID=America/New_York:20241203T090000
+DTEND;TZID=America/New_York:20241203T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Setup Deepgram/Whi
+ sper ASR
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Audio Upload Backend
+DTSTART;TZID=America/New_York:20241204T090000
+DTEND;TZID=America/New_York:20241204T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Build Audio Upload
+  Backend
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Audio Upload Backend
+DTSTART;TZID=America/New_York:20241205T090000
+DTEND;TZID=America/New_York:20241205T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Build Audio Upload
+  Backend
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Summarization & Action Item Extraction
+DTSTART;TZID=America/New_York:20241206T090000
+DTEND;TZID=America/New_York:20241206T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Summarization & Ac
+ tion Item Extraction
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Jira/Notion Automation Integration
+DTSTART;TZID=America/New_York:20241209T090000
+DTEND;TZID=America/New_York:20241209T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Jira/Notion Automa
+ tion Integration
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Frontend Upload Page
+DTSTART;TZID=America/New_York:20241210T090000
+DTEND;TZID=America/New_York:20241210T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Frontend Upload Pa
+ ge
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Frontend Upload Page
+DTSTART;TZID=America/New_York:20241211T090000
+DTEND;TZID=America/New_York:20241211T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Frontend Upload Pa
+ ge
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Azure Blob Storage Integration
+DTSTART;TZID=America/New_York:20241212T090000
+DTEND;TZID=America/New_York:20241212T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Azure Blob Storage
+  Integration
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Azure Blob Storage Integration
+DTSTART;TZID=America/New_York:20241213T090000
+DTEND;TZID=America/New_York:20241213T130000
+DESCRIPTION:Phase: PHASE 3: AI Meeting Pipeline\nFocus: Azure Blob Storage
+  Integration
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:KICKOFF: PHASE 4: Agentic Research System
+DTSTART;TZID=America/New_York:20241214T090000
+DTEND;TZID=America/New_York:20241214T100000
+DESCRIPTION:Objective: Start PHASE 4: Agentic Research System
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Multi-step Planning (State Machine)
+DTSTART;TZID=America/New_York:20241216T090000
+DTEND;TZID=America/New_York:20241216T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: Multi-step Pla
+ nning (State Machine)
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Multi-step Planning (State Machine)
+DTSTART;TZID=America/New_York:20241217T090000
+DTEND;TZID=America/New_York:20241217T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: Multi-step Pla
+ nning (State Machine)
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: JSON Schema Enforcement
+DTSTART;TZID=America/New_York:20241218T090000
+DTEND;TZID=America/New_York:20241218T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: JSON Schema En
+ forcement
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: JSON Schema Enforcement
+DTSTART;TZID=America/New_York:20241219T090000
+DTEND;TZID=America/New_York:20241219T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: JSON Schema En
+ forcement
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Report Generation Logic
+DTSTART;TZID=America/New_York:20241220T090000
+DTEND;TZID=America/New_York:20241220T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: Report Generat
+ ion Logic
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Slack/Email Delivery Integration
+DTSTART;TZID=America/New_York:20241223T090000
+DTEND;TZID=America/New_York:20241223T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: Slack/Email De
+ livery Integration
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Final Deployment
+DTSTART;TZID=America/New_York:20241224T090000
+DTEND;TZID=America/New_York:20241224T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: Final Deployme
+ nt
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Final Deployment
+DTSTART;TZID=America/New_York:20241225T090000
+DTEND;TZID=America/New_York:20241225T130000
+DESCRIPTION:Phase: PHASE 4: Agentic Research System\nFocus: Final Deployme
+ nt
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:KICKOFF: PHASE 5: AZ-900 Certification
+DTSTART;TZID=America/New_York:20241226T090000
+DTEND;TZID=America/New_York:20241226T100000
+DESCRIPTION:Objective: Start PHASE 5: AZ-900 Certification
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Study Compute\, Storage\, Networking
+DTSTART;TZID=America/New_York:20241226T090000
+DTEND;TZID=America/New_York:20241226T130000
+DESCRIPTION:Phase: PHASE 5: AZ-900 Certification\nFocus: Study Compute\, S
+ torage\, Networking
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Study Compute\, Storage\, Networking
+DTSTART;TZID=America/New_York:20241227T090000
+DTEND;TZID=America/New_York:20241227T130000
+DESCRIPTION:Phase: PHASE 5: AZ-900 Certification\nFocus: Study Compute\, S
+ torage\, Networking
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Practice Exams
+DTSTART;TZID=America/New_York:20241230T090000
+DTEND;TZID=America/New_York:20241230T130000
+DESCRIPTION:Phase: PHASE 5: AZ-900 Certification\nFocus: Practice Exams
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:KICKOFF: PHASE 6: Final Polish
+DTSTART;TZID=America/New_York:20241231T090000
+DTEND;TZID=America/New_York:20241231T100000
+DESCRIPTION:Objective: Start PHASE 6: Final Polish
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Portfolio Page
+DTSTART;TZID=America/New_York:20241231T090000
+DTEND;TZID=America/New_York:20241231T130000
+DESCRIPTION:Phase: PHASE 6: Final Polish\nFocus: Build Portfolio Page
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Build Portfolio Page
+DTSTART;TZID=America/New_York:20250101T090000
+DTEND;TZID=America/New_York:20250101T130000
+DESCRIPTION:Phase: PHASE 6: Final Polish\nFocus: Build Portfolio Page
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:BUILD: Architecture Diagrams
+DTSTART;TZID=America/New_York:20250102T090000
+DTEND;TZID=America/New_York:20250102T130000
+DESCRIPTION:Phase: PHASE 6: Final Polish\nFocus: Architecture Diagrams
+END:VEVENT
+END:VCALENDAR
